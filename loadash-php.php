@@ -60,6 +60,15 @@ class LoadashPhp
     }
 
     /**
+     * Gets the timestamp of the number of milliseconds that have elapsed since the Unix epoch (1 January 1970 00:00:00 UTC).
+     * @return mixed
+     */
+    public function now() {
+        $unix_time = explode(" ", microtime());
+        return ($unix_time[1] / 1000);
+    }
+
+    /**
      * Throws an exception with provided message.
      * @param $msg
      * @throws Exception
