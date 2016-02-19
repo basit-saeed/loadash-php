@@ -60,6 +60,30 @@ class LoadashPhp
     }
 
     /**
+     * Creates a slice of array with n elements dropped from the beginning.
+     * @param $array
+     * @param $number
+     * @throws Exception
+     * @return array
+     */
+    public function drop($array, $number) {
+        if(!is_array($array) || !is_int($number)) {
+            $this->throw_exception("Invalid param type");
+        }
+        if(count($array) < $number) {
+            return [];
+        }
+        if($number == 0)
+            return $array;
+        $drop_array = array();
+        foreach($array as $key => $value) {
+            if($key >= $number)
+                array_push($drop_array, $value);
+        }
+        return $drop_array;
+    }
+
+    /**
      * Throws an exception with provided message.
      * @param $msg
      * @throws Exception
