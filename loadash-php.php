@@ -12,7 +12,7 @@ class LoadashPhp
      * Creates an array of elements split into groups the length of size.
      * If array can’t be split evenly, the final chunk will be the remaining elements.
      * @param $array
-     * @param $number
+     * @param int $number
      * @throws Exception
      * @return array
      */
@@ -62,11 +62,11 @@ class LoadashPhp
     /**
      * Creates a slice of array with n elements dropped from the beginning.
      * @param $array
-     * @param $number
+     * @param int $number
      * @throws Exception
      * @return array
      */
-    public function drop($array, $number) {
+    public function drop($array, $number = 1) {
         if(!is_array($array) || !is_int($number)) {
             $this->throw_exception("Invalid param type");
         }
@@ -78,6 +78,31 @@ class LoadashPhp
         $drop_array = array();
         foreach($array as $key => $value) {
             if($key >= $number)
+                array_push($drop_array, $value);
+        }
+        return $drop_array;
+    }
+
+    /**
+     * Creates a slice of array with n elements dropped from the end.
+     * @param $array
+     * @param int $number
+     * @throws Exception
+     * @return array
+     */
+    public function dropRight($array, $number = 1) {
+        if(!is_array($array) || !is_int($number)) {
+            $this->throw_exception("Invalid param type");
+        }
+        if(count($array) < $number) {
+            return [];
+        }
+        if($number == 0)
+            return $array;
+        $drop_array = array();
+        $array_count = count($array);
+        foreach($array as $key => $value) {
+            if(($array_count - $key) <= $number)
                 array_push($drop_array, $value);
         }
         return $drop_array;
